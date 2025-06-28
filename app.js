@@ -114,6 +114,4 @@ app.use((req, res) => {
 // ===========================
 //        SERVER START
 // ===========================
-app.listen(port, () => {
-  console.log(`SEA Catering berjalan di http://localhost:${port}`);
-});
+module.exports = app;
