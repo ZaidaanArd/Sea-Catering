@@ -62,22 +62,42 @@
         <div class="subs-block">
           <label class="subs-label">Meal Type*</label>
           <div class="subs-checkbox-list">
-            <label><input type="checkbox" name="mealType" value="Breakfast" required /> Breakfast</label>
-            <label><input type="checkbox" name="mealType" value="Lunch" /> Lunch</label>
-            <label><input type="checkbox" name="mealType" value="Dinner" /> Dinner</label>
+            <label>
+              <input type="checkbox" name="mealType" value="Breakfast" required /> Breakfast
+            </label>
+            <label>
+              <input type="checkbox" name="mealType" value="Lunch" /> Lunch
+            </label>
+            <label>
+              <input type="checkbox" name="mealType" value="Dinner" /> Dinner
+            </label>
           </div>
         </div>
         <!-- Delivery Days -->
         <div class="subs-block">
           <label class="subs-label">Delivery Days*</label>
           <div class="subs-checkbox-list">
-            <label><input type="checkbox" name="days" value="Sunday" required /> Sunday</label>
-            <label><input type="checkbox" name="days" value="Monday" /> Monday</label>
-            <label><input type="checkbox" name="days" value="Tuesday" /> Tuesday</label>
-            <label><input type="checkbox" name="days" value="Wednesday" /> Wednesday</label>
-            <label><input type="checkbox" name="days" value="Thursday" /> Thursday</label>
-            <label><input type="checkbox" name="days" value="Friday" /> Friday</label>
-            <label><input type="checkbox" name="days" value="Saturday" /> Saturday</label>
+            <label>
+              <input type="checkbox" name="days" value="Sunday" required /> Sunday
+            </label>
+            <label>
+              <input type="checkbox" name="days" value="Monday" /> Monday
+            </label>
+            <label>
+              <input type="checkbox" name="days" value="Tuesday" /> Tuesday
+            </label>
+            <label>
+              <input type="checkbox" name="days" value="Wednesday" /> Wednesday
+            </label>
+            <label>
+              <input type="checkbox" name="days" value="Thursday" /> Thursday
+            </label>
+            <label>
+              <input type="checkbox" name="days" value="Friday" /> Friday
+            </label>
+            <label>
+              <input type="checkbox" name="days" value="Saturday" /> Saturday
+            </label>
           </div>
         </div>
         <!-- Allergies -->
@@ -85,6 +105,7 @@
           <label class="subs-label">Allergies / Dietary Restrictions</label>
           <textarea name="allergies" placeholder="List any allergies or dietary restrictions"></textarea>
         </div>
+        <!-- Price Calculator -->
         <div id="price-calculation" class="price-calc-container">
           <span>Total Price: </span>
           <span id="total-price" class="total-price">Rp 0</span>
@@ -95,54 +116,37 @@
     </div>
   </main>
   <%- include('partials/footer') %>
+  <script>
+    // Kalkulasi harga otomatis
+    const planRadios = document.querySelectorAll('input[name="plan"]');
+    const mealTypeCheckboxes = document.querySelectorAll('input[name="mealType"]');
+    const dayCheckboxes = document.querySelectorAll('input[name="days"]');
+    const totalPriceSpan = document.getElementById('total-price');
+    const planPrices = {
+      "Diet Plan": 30000,
+      "Protein Plan": 40000,
+      "Royal Plan": 60000,
+    };
+    function calculateTotalPrice() {
+      let selectedPlan = document.querySelector('input[name="plan"]:checked');
+      if (!selectedPlan) {
+        totalPriceSpan.innerText = "Rp 0";
+        return;
+      }
+      let planPrice = planPrices[selectedPlan.value];
+      let mealTypes = document.querySelectorAll('input[name="mealType"]:checked').length;
+      let deliveryDays = document.querySelectorAll('input[name="days"]:checked').length;
+      if (mealTypes === 0 || deliveryDays === 0) {
+        totalPriceSpan.innerText = "Rp 0";
+        return;
+      }
+      let total = planPrice * mealTypes * deliveryDays * 4.3;
+      totalPriceSpan.innerText = "Rp " + total.toLocaleString("id-ID");
+    }
+    planRadios.forEach(r => r.addEventListener('change', calculateTotalPrice));
+    mealTypeCheckboxes.forEach(c => c.addEventListener('change', calculateTotalPrice));
+    dayCheckboxes.forEach(c => c.addEventListener('change', calculateTotalPrice));
+    calculateTotalPrice();
+  </script>
 </body>
-
-<script>
-const planRadios = document.querySelectorAll('input[name="plan"]');
-const mealTypeCheckboxes = document.querySelectorAll('input[name="mealType"]');
-const dayCheckboxes = document.querySelectorAll('input[name="days"]');
-const totalPriceSpan = document.getElementById('total-price');
-
-const planPrices = {
-  "Diet Plan": 30000,
-  "Protein Plan": 40000,
-  "Royal Plan": 60000,
-};
-
-function calculateTotalPrice() {
-  // Dapatkan harga plan
-  let selectedPlan = document.querySelector('input[name="plan"]:checked');
-  if (!selectedPlan) {
-    totalPriceSpan.innerText = "Rp 0";
-    return;
-  }
-  let planPrice = planPrices[selectedPlan.value];
-
-  // Hitung jumlah mealType & days
-  let mealTypes = document.querySelectorAll('input[name="mealType"]:checked').length;
-  let deliveryDays = document.querySelectorAll('input[name="days"]:checked').length;
-
-  // Jika belum pilih apapun, Rp 0
-  if (mealTypes === 0 || deliveryDays === 0) {
-    totalPriceSpan.innerText = "Rp 0";
-    return;
-  }
-
-  // Kalkulasi
-  let total = planPrice * mealTypes * deliveryDays * 4.3;
-
-  // Format ke Rupiah
-  totalPriceSpan.innerText = "Rp " + total.toLocaleString("id-ID");
-}
-
-// Event listeners (real-time)
-planRadios.forEach(r => r.addEventListener('change', calculateTotalPrice));
-mealTypeCheckboxes.forEach(c => c.addEventListener('change', calculateTotalPrice));
-dayCheckboxes.forEach(c => c.addEventListener('change', calculateTotalPrice));
-
-// Panggil awal (biar langsung update kalau form ada data)
-calculateTotalPrice();
-</script>
-
-
 </html>
