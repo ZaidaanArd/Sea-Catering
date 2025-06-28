@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SEA Catering - Subscription</title>
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/subscription.css">
+</head>
+<body>
+  <%- include('partials/header') %>
+  <main class="subscription-page">
+    <div class="subs-card">
+      <h2 class="subs-title">Subscribe To Your Meal Plan</h2>
+      <form class="subs-form" method="POST" action="/subscription">
+        <!-- Name & Phone -->
+        <div class="subs-input-group">
+          <input type="text" id="name" name="name" class="subs-input" placeholder="Name*" required />
+          <input type="text" id="phone" name="phone" class="subs-input" placeholder="Number Phone*" required />
+        </div>
+        <!-- Select Plan -->
+        <div class="subs-block">
+          <label class="subs-label">Select Plan*</label>
+          <div class="plan-cards">
+            <!-- Diet Plan -->
+            <label class="plan-card">
+              <input type="radio" name="plan" value="Diet Plan" required>
+              <div class="plan-card-content">
+                <div class="plan-title">Diet Plan</div>
+                <div class="plan-desc">
+                  The Diet Plan is designed to help you manage your calories and maintain a clean, healthy eating habit. Ideal for those aiming for weight loss or following a calorie-controlled lifestyle.
+                </div>
+                <div class="plan-price">Rp 30.000/meal</div>
+              </div>
+              <span class="custom-radio"></span>
+            </label>
+            <!-- Protein Plan -->
+            <label class="plan-card">
+              <input type="radio" name="plan" value="Protein Plan" required>
+              <div class="plan-card-content">
+                <div class="plan-title">Protein Plan</div>
+                <div class="plan-desc">
+                  The Protein Plan is tailored for active individuals looking to build or maintain muscle mass. It's packed with high-quality protein sources and balanced nutrients to support performance and recovery.
+                </div>
+                <div class="plan-price">Rp 40.000/meal</div>
+              </div>
+              <span class="custom-radio"></span>
+            </label>
+            <!-- Royal Plan -->
+            <label class="plan-card">
+              <input type="radio" name="plan" value="Royal Plan" required>
+              <div class="plan-card-content">
+                <div class="plan-title">Royal Plan</div>
+                <div class="plan-desc">
+                  The Royal Plan offers a premium meal experience with larger portions, exclusive ingredients, and complete nutrition in every bite. Best suited for customers seeking both health and indulgence.
+                </div>
+                <div class="plan-price">Rp 60.000/meal</div>
+              </div>
+              <span class="custom-radio"></span>
+            </label>
+          </div>
+        </div>
+        <!-- Meal Type -->
+        <div class="subs-block">
+          <label class="subs-label">Meal Type*</label>
+          <div class="subs-checkbox-list">
+            <label><input type="checkbox" name="mealType" value="Breakfast" required /> Breakfast</label>
+            <label><input type="checkbox" name="mealType" value="Lunch" /> Lunch</label>
+            <label><input type="checkbox" name="mealType" value="Dinner" /> Dinner</label>
+          </div>
+        </div>
+        <!-- Delivery Days -->
+        <div class="subs-block">
+          <label class="subs-label">Delivery Days*</label>
+          <div class="subs-checkbox-list">
+            <label><input type="checkbox" name="days" value="Sunday" required /> Sunday</label>
+            <label><input type="checkbox" name="days" value="Monday" /> Monday</label>
+            <label><input type="checkbox" name="days" value="Tuesday" /> Tuesday</label>
+            <label><input type="checkbox" name="days" value="Wednesday" /> Wednesday</label>
+            <label><input type="checkbox" name="days" value="Thursday" /> Thursday</label>
+            <label><input type="checkbox" name="days" value="Friday" /> Friday</label>
+            <label><input type="checkbox" name="days" value="Saturday" /> Saturday</label>
+          </div>
+        </div>
+        <!-- Allergies -->
+        <div class="subs-block">
+          <label class="subs-label">Allergies / Dietary Restrictions</label>
+          <textarea name="allergies" placeholder="List any allergies or dietary restrictions"></textarea>
+        </div>
+        <div id="price-calculation" class="price-calc-container">
+          <span>Total Price: </span>
+          <span id="total-price" class="total-price">Rp 0</span>
+        </div>
+        <button type="submit" class="subscribe-btn">Subscribe</button>
+        <div class="subs-note">Note: Fields marked with (*) are required and must be filled in before submitting the form.</div>
+      </form>
+    </div>
+  </main>
+  <%- include('partials/footer') %>
+</body>
+
+<script>
+const planRadios = document.querySelectorAll('input[name="plan"]');
+const mealTypeCheckboxes = document.querySelectorAll('input[name="mealType"]');
+const dayCheckboxes = document.querySelectorAll('input[name="days"]');
+const totalPriceSpan = document.getElementById('total-price');
+
+const planPrices = {
+  "Diet Plan": 30000,
+  "Protein Plan": 40000,
+  "Royal Plan": 60000,
+};
+
+function calculateTotalPrice() {
+  // Dapatkan harga plan
+  let selectedPlan = document.querySelector('input[name="plan"]:checked');
+  if (!selectedPlan) {
+    totalPriceSpan.innerText = "Rp 0";
+    return;
+  }
+  let planPrice = planPrices[selectedPlan.value];
+
+  // Hitung jumlah mealType & days
+  let mealTypes = document.querySelectorAll('input[name="mealType"]:checked').length;
+  let deliveryDays = document.querySelectorAll('input[name="days"]:checked').length;
+
+  // Jika belum pilih apapun, Rp 0
+  if (mealTypes === 0 || deliveryDays === 0) {
+    totalPriceSpan.innerText = "Rp 0";
+    return;
+  }
+
+  // Kalkulasi
+  let total = planPrice * mealTypes * deliveryDays * 4.3;
+
+  // Format ke Rupiah
+  totalPriceSpan.innerText = "Rp " + total.toLocaleString("id-ID");
+}
+
+// Event listeners (real-time)
+planRadios.forEach(r => r.addEventListener('change', calculateTotalPrice));
+mealTypeCheckboxes.forEach(c => c.addEventListener('change', calculateTotalPrice));
+dayCheckboxes.forEach(c => c.addEventListener('change', calculateTotalPrice));
+
+// Panggil awal (biar langsung update kalau form ada data)
+calculateTotalPrice();
+</script>
+
+
+</html>

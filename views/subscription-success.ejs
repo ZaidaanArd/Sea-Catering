@@ -1,0 +1,26 @@
+<!-- views/subscription-success.ejs -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Berhasil Subscribe</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <%- include('partials/header') %>
+<main style="display:flex;justify-content:center;align-items:center;min-height:60vh;">
+  <div style="background: #fff; border-radius: 16px; box-shadow: 0 4px 20px rgba(40,167,69,0.05); max-width: 520px; width: 100%; padding: 48px 36px 40px 36px; text-align: center;">
+    <h2 style="color:#28a745; font-size:2rem; font-weight:700; margin-bottom:22px;">
+      Terima kasih telah berlangganan!
+    </h2>
+    <p style="font-size:1.15rem; color:#333; margin-bottom:28px;">
+      Data kamu sudah kami terima.<br>Kami akan segera memproses pesananmu.
+    </p>
+    <a href="/" 
+       style="display:inline-block; background:#28a745; color:#fff; font-size:1.1rem; font-weight:600; padding:14px 36px; border-radius:8px; text-decoration:none; transition:background .2s;">
+      Kembali ke Home
+    </a>
+  </div>
+</main>
+  <%- include('partials/footer') %>
+</body>
+</html>

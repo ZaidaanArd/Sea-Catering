@@ -1,0 +1,258 @@
+/* =====================
+   SUBSCRIPTION PAGE
+===================== */
+
+/* Background & Center */
+.subscription-page {
+  min-height: 100vh;
+  background: #f8f8f8;
+  padding: 40px 0 60px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* White Card Container */
+.subs-card {
+  background: #fff;
+  border-radius: 25px;
+  box-shadow: 0 6px 32px rgba(20,50,20,0.10);
+  padding: 44px 48px 38px 48px;
+  max-width: 920px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+/* Title */
+.subs-title {
+  text-align: center;
+  color: #28a745;
+  font-size: 1.65rem;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  margin-bottom: 38px;
+  margin-top: 0;
+}
+
+/* Input Group (Name, Phone) */
+.subs-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 18px;
+}
+.subs-input-group input[type="text"] {
+  width: 100%;
+  padding: 15px 17px;
+  border: 1.5px solid #28a745;
+  border-radius: 9px;
+  font-size: 1.07rem;
+  background: #f9f9f9;
+  font-family: 'Poppins', sans-serif;
+  outline: none;
+  transition: border 0.18s;
+}
+.subs-input-group input[type="text"]:focus {
+  border-color: #218838;
+  background: #fff;
+}
+
+/* Section Label */
+.subs-label {
+  font-size: 1.19rem;
+  color: #28a745;
+  font-weight: 600;
+  margin-top: 30px;
+  margin-bottom: 13px;
+  display: block;
+}
+
+/* PLAN CARDS */
+.plan-cards {
+  display: flex;
+  gap: 22px;
+  margin-bottom: 0;
+  justify-content: stretch;
+}
+.plan-card {
+  flex: 1 1 0;
+  background: #fff;
+  border: 2px solid #28a745;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(50,80,50,0.06);
+  padding: 30px 22px 18px 22px;
+  min-width: 0;
+  max-width: 330px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: border 0.18s, box-shadow 0.18s;
+  margin-bottom: 0;
+  position: relative;
+  cursor: pointer;
+}
+
+.plan-card input[type="radio"] {
+  display: none;
+}
+
+.plan-card-content {
+  width: 100%;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  flex: 1 0 auto;
+}
+
+.plan-title {
+  color: #28a745;
+  font-size: 1.34rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 10px;
+}
+.plan-desc {
+  font-size: 1.02rem;
+  color: #333;
+  text-align: center;
+  margin-bottom: 20px;
+  line-height: 1.54;
+}
+.plan-price {
+  color: #28a745;
+  font-size: 1.01rem;
+  font-weight: 500;
+  margin-bottom: 0;
+  text-align: center;
+}
+
+/* --- Custom Radio (bulat di bawah, pasti di tengah) --- */
+.custom-radio {
+  display: block;
+  margin: 28px auto 0 auto; 
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2.2px solid #c0d7c7;
+  background: #fff;
+  position: relative;
+  transition: border 0.18s, background 0.18s;
+}
+.plan-card input[type="radio"]:checked ~ .custom-radio {
+  border: 2.2px solid #28a745;
+  background: #d8f9e2;
+}
+.plan-card input[type="radio"]:checked ~ .custom-radio::after {
+  content: '';
+  display: block;
+  position: absolute;
+  left: 8px;
+  top: 8px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #28a745;
+}
+
+
+/* MEAL TYPE & DELIVERY DAYS - Checkbox button style */
+.subs-checkbox-list {
+  display: flex;
+  gap: 18px 28px;
+  flex-wrap: wrap;
+  margin-bottom: 0;
+}
+.subs-checkbox-list label {
+  font-size: 1.09rem;
+  font-weight: 500;
+  color: #28a745;
+  background: #f8f8f8;
+  border: 2px solid #d6efd8;
+  border-radius: 11px;
+  padding: 12px 28px;
+  cursor: pointer;
+  transition: border 0.14s, background 0.14s, color 0.14s;
+  margin-bottom: 7px;
+  display: flex;
+  align-items: center;
+  user-select: none;
+}
+.subs-checkbox-list input[type="checkbox"] {
+  accent-color: #28a745;
+  margin-right: 11px;
+  width: 20px;
+  height: 20px;
+}
+
+/* Allergies textarea */
+.subs-form textarea {
+  width: 100%;
+  padding: 16px 14px;
+  border: 1.5px solid #28a745;
+  border-radius: 9px;
+  font-size: 1.09rem;
+  background: #f9f9f9;
+  margin-top: 0;
+  margin-bottom: 0;
+  font-family: 'Poppins', sans-serif;
+  min-height: 64px;
+  resize: vertical;
+}
+
+/* Button */
+.subscribe-btn {
+  width: 100%;
+  background: #28a745;
+  color: #fff;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.17rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  padding: 16px 0;
+  cursor: pointer;
+  margin: 32px 0 0 0;
+  transition: background 0.2s;
+  display: block;
+}
+.subscribe-btn:hover {
+  background: #218838;
+}
+
+.subs-note {
+  margin-top: 18px;
+  color: #888;
+  font-size: 1rem;
+  text-align: left;
+}
+
+.price-calc-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  font-size: 1.2rem;
+  color: #28a745;
+  margin: 18px 0 10px 0;
+  font-weight: 600;
+  gap: 10px;
+}
+.total-price {
+  font-size: 1.26rem;
+  color: #28a745;
+  font-weight: bold;
+}
+
+
+/* Responsive */
+@media (max-width: 1000px) {
+  .subs-card { padding: 20px 2vw; }
+  .plan-cards { flex-direction: column; gap: 18px;}
+}
+@media (max-width: 700px) {
+  .subs-card { padding: 12px 0.5vw; }
+  .plan-card { min-width: 96vw; max-width: 98vw; }
+  .subs-checkbox-list label { width: 100%; min-width: 120px;}
+}

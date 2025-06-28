@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SEA Catering - Contact</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <%- include('partials/header') %>
+<main class="contact-page">
+  <h2 class="contact-title">Contact SEA Catering</h2>
+  <div class="contact-flex">
+    <!-- KIRI: Info Kontak -->
+    <div class="contact-info-card">
+      <div class="contact-info-group">
+        <label>Manager</label>
+        <div class="contact-info-value">Brian</div>
+      </div>
+      <div class="contact-info-group">
+        <label>Number</label>
+        <div class="contact-info-value">08123456789</div>
+      </div>
+      <div class="contact-info-group">
+        <label>Operational</label>
+        <div class="contact-info-value">
+          08:00–17:00 WIB <br> Monday – Friday
+        </div>
+      </div>
+    </div>
+
+    <!-- KANAN: Form Testimoni -->
+    <div class="testimonial-form-card">
+      <h3 class="form-title">Send Us Your Testimonial</h3>
+      <form class="testimonial-form" method="POST" action="/testimonials">
+        <div class="form-group">
+          <label for="name">Name*</label>
+          <input type="text" id="name" name="name" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Email (Optional)</label>
+          <input type="email" id="email" name="email">
+        </div>
+        <div class="form-group">
+          <label>Rate Us*</label>
+          <div class="star-rating">
+            <% for(let i=5; i>=1; i--) { %>
+              <input type="radio" id="star<%= i %>" name="rating" value="<%= i %>" required>
+              <label for="star<%= i %>">&#9733;</label>
+            <% } %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="review">Review*</label>
+          <textarea id="review" name="review" rows="3" required></textarea>
+        </div>
+        <button type="submit" class="submit-btn">Submit</button>
+        <% if (typeof successMsg !== 'undefined' && successMsg) { %>
+          <div class="form-success"><%= successMsg %></div>
+        <% } %>
+        <% if (typeof errorMsg !== 'undefined' && errorMsg) { %>
+          <div class="form-error"><%= errorMsg %></div>
+        <% } %>
+      </form>
+    </div>
+  </div>
+</main>
+  <%- include('partials/footer') %>
+</body>
+</html>

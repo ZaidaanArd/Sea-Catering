@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SEA Catering - Menu</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <%- include('partials/header') %>
+
+  <main>
+    <h2 class="menu-title">Pick Your Meal Plan</h2>
+    <section class="menu-cards">
+      <!-- Diet Plan -->
+      <div class="menu-card">
+        <img src="/images/diet-plan.jpg" alt="Diet Plan">
+        <div class="menu-card-content">
+          <h3 class="menu-card-title">Diet Plan <span class="menu-card-price">Rp 30.000/meal</span></h3>
+          <p class="menu-card-desc">
+            The Diet Plan is designed to help you manage your calories and maintain a clean, healthy eating habit. Ideal for those aiming for weight loss or following a calorie-controlled lifestyle.
+          </p>
+          <div class="see-more-container">
+            <button class="see-more-btn" onclick="toggleDetail(this)">See More Detail <span>▼</span></button>
+            <ul class="menu-card-detail">
+              <li>Calorie-controlled portions</li>
+            </ul>
+          </div>
+          <!-- Ganti button jadi link -->
+          <a href="/subscription" class="subscribe-btn" style="display:block;text-align:center;">Subscribe</a>
+        </div>
+      </div>
+
+      <!-- Protein Plan -->
+      <div class="menu-card">
+        <img src="/images/protein-plan.jpg" alt="Protein Plan">
+        <div class="menu-card-content">
+          <h3 class="menu-card-title">Protein Plan <span class="menu-card-price">Rp 40.000/meal</span></h3>
+          <p class="menu-card-desc">
+            The Protein Plan is tailored for active individuals looking to build or maintain muscle mass. It's packed with high-quality protein sources and balanced nutrients to support performance and recovery.
+          </p>
+          <div class="see-more-container">
+            <button class="see-more-btn" onclick="toggleDetail(this)">See More Detail <span>▼</span></button>
+            <ul class="menu-card-detail">
+              <li>High-protein content (30g+ per meal)</li>
+              <li>Muscle building support</li>
+              <li>Recovery-focused meals</li>
+            </ul>
+          </div>
+          <a href="/subscription" class="subscribe-btn" style="display:block;text-align:center;">Subscribe</a>
+        </div>
+      </div>
+
+      <!-- Royal Plan -->
+      <div class="menu-card">
+        <img src="/images/royal-plan.jpg" alt="Royal Plan">
+        <div class="menu-card-content">
+          <h3 class="menu-card-title">Royal Plan <span class="menu-card-price">Rp 60.000/meal</span></h3>
+          <p class="menu-card-desc">
+            The Royal Plan offers a premium meal experience with larger portions, exclusive ingredients, and complete nutrition in every bite. Best suited for customers seeking both health and indulgence.
+          </p>
+          <div class="see-more-container">
+            <button class="see-more-btn" onclick="toggleDetail(this)">See More Detail <span>▼</span></button>
+            <ul class="menu-card-detail">
+              <li>Gourmet ingredients</li>
+              <li>Chef-prepared meals</li>
+              <li>Larger portion sizes</li>
+            </ul>
+          </div>
+          <a href="/subscription" class="subscribe-btn" style="display:block;text-align:center;">Subscribe</a>
+        </div>
+      </div>
+    </section>
+
+  <div class="faq-card">
+    <h3 class="faq-title">Frequently Asked Questions</h3>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-question">Q: Can I choose more than one meal type?</div>
+        <div class="faq-answer">A: Absolutely! You are free to select any combination of breakfast, lunch, and dinner according to your needs.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">Q: How can I change my menu or cancel my subscription?</div>
+        <div class="faq-answer">A: Please contact our customer care team at least one day before your next scheduled delivery.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">Q: Can the menu be customized to fit my allergies?</div>
+        <div class="faq-answer">A: Yes, just mention your allergies or special dietary needs when filling out the subscription form.</div>
+      </div>
+    </div>
+  </div>
+  </main>
+
+  <%- include('partials/footer') %>
+
+  <script>
+  function toggleDetail(btn) {
+    const container = btn.parentElement;
+    const detail = container.querySelector('.menu-card-detail');
+    const span = btn.querySelector('span');
+
+    if (detail.classList.contains('show')) {
+      detail.style.height = detail.scrollHeight + 'px';
+      detail.offsetHeight;
+      detail.style.height = '0';
+      detail.style.opacity = '0';
+      detail.style.paddingTop = '0';
+      detail.style.paddingBottom = '0';
+      detail.classList.remove('show');
+      span.textContent = '▼';
+    } else {
+      detail.classList.add('show');
+      detail.style.display = 'block';
+      detail.style.height = 'auto';
+      const fullHeight = detail.scrollHeight + 'px';
+      detail.style.height = '0';
+      detail.style.opacity = '0';
+      detail.offsetHeight;
+      detail.style.height = fullHeight;
+      detail.style.opacity = '1';
+      detail.style.paddingTop = '14px';
+      detail.style.paddingBottom = '14px';
+      span.textContent = '▲';
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.menu-card-detail').forEach(el => {
+      el.classList.remove('show');
+      el.style.height = '0';
+      el.style.opacity = '0';
+      el.style.paddingTop = '0';
+      el.style.paddingBottom = '0';
+      el.style.display = 'block';
+    });
+  });
+
+  document.addEventListener('transitionend', function(e) {
+    if (e.propertyName === 'height') {
+      const el = e.target;
+      if (el.classList.contains('show')) {
+        el.style.height = 'auto';
+      }
+    }
+  });
+  </script>
+</body>
+</html>
