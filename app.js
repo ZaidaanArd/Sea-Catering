@@ -40,15 +40,7 @@ app.get('/subscription', (req, res) => {
   res.render('subscription');
 });
 
-// Halaman kontak
-app.get('/contact', (req, res) => {
-  // Wajib passing variabel biar tidak error di EJS jika undefined
-  res.render('contact', {
-    successMsg: null,
-    errorMsg: null
-  });
-});
-
+// Halaman kontak (pastikan variabel untuk EJS selalu ada)
 app.get('/contact', (req, res) => {
   res.render('contact', { 
     successMsg: null, 
@@ -58,16 +50,7 @@ app.get('/contact', (req, res) => {
 
 // Kirim testimonial dari contact page
 app.post('/testimonials', async (req, res) => {
-  // Sebenarnya di sini bisa simpan ke DB juga kalau mau
-  res.render('contact', {
-    successMsg: "Thank you for your testimonial!",
-    errorMsg: null
-  });
-});
-
-// Kirim testimonial dari contact page
-app.post('/testimonials', async (req, res) => {
-  // TODO: Proses simpan testimonial ke DB jika ada
+  // TODO: Simpan ke DB jika ingin
   res.render('contact', {
     successMsg: "Thank you for your testimonial!",
     errorMsg: null
@@ -116,7 +99,6 @@ app.post('/subscription', async (req, res) => {
       name, phone, plan, mealTypes, deliveryDays, allergies, Math.round(totalPrice)
     ]);
 
-    // Redirect ke halaman sukses
     res.redirect('/subscription-success');
   } catch (err) {
     console.error('DB Error:', err);
@@ -124,7 +106,7 @@ app.post('/subscription', async (req, res) => {
   }
 });
 
-// 404 Handler (muncul jika tidak ada route yang match)
+// 404 Handler (jika route tidak ada)
 app.use((req, res) => {
   res.status(404).render('404', { title: "Page Not Found" });
 });
