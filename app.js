@@ -4,6 +4,7 @@
 const express = require('express');
 const path = require('path');
 const db = require('./db'); // Koneksi MySQL Pool
+const authRouter = require('./auth'); // Tambah router auth
 
 const app = express();
 const port = 3000;
@@ -11,9 +12,9 @@ const port = 3000;
 // ===========================
 //        MIDDLEWARE
 // ===========================
-app.use(express.urlencoded({ extended: true })); // Parsing form POST
-app.use(express.json()); // Untuk parsing JSON
-app.use(express.static(path.join(__dirname, 'public'))); // Static files (CSS, JS, Images)
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.static(path.join(__dirname, 'public')));
 
 // ===========================
 //        VIEW ENGINE
@@ -25,24 +26,28 @@ app.set('views', path.join(__dirname, 'views'));
 //        ROUTES
 // ===========================
 
+// Gunakan authRouter untuk POST /signup dan /signin
+app.use('/', authRouter);
+
 // Halaman utama
 app.get('/', (req, res) => {
-  res.render('index');
+  res.render('index', { activePage: 'home' });
 });
 
 // Menu makanan
 app.get('/menu', (req, res) => {
-  res.render('menu');
+  res.render('menu', { activePage: 'menu' });
 });
 
 // Halaman subscription (form)
 app.get('/subscription', (req, res) => {
-  res.render('subscription');
+  res.render('subscription', { activePage: 'subscription' });
 });
 
 // Halaman kontak (pastikan variabel untuk EJS selalu ada)
 app.get('/contact', (req, res) => {
   res.render('contact', { 
+    activePage: 'contact',
     successMsg: null, 
     errorMsg: null 
   });
@@ -50,46 +55,43 @@ app.get('/contact', (req, res) => {
 
 // Kirim testimonial dari contact page
 app.post('/testimonials', async (req, res) => {
-  // TODO: Simpan ke DB jika ingin
   res.render('contact', {
+    activePage: 'contact',
     successMsg: "Thank you for your testimonial!",
     errorMsg: null
   });
 });
 
-// Halaman sign in
+// GET Signin/Signup SELALU render errorMsg & successMsg supaya ga error EJS
 app.get('/signin', (req, res) => {
-  res.render('signin');
+  res.render('signin', { activePage: 'signin', errorMsg: null, successMsg: null });
+});
+
+app.get('/signup', (req, res) => {
+  res.render('signup', { activePage: 'signup', errorMsg: null, successMsg: null }); 
 });
 
 // Halaman sukses setelah subscription
 app.get('/subscription-success', (req, res) => {
-  res.render('subscription-success');
+  res.render('subscription-success', { activePage: '' });
 });
 
 // Handle POST subscription (simpan ke database)
 app.post('/subscription', async (req, res) => {
   try {
     const { name, phone, plan, mealType, days, allergies } = req.body;
-
-    // Checkbox bisa array atau string
     const mealTypes = Array.isArray(mealType) ? mealType.join(',') : (mealType || '');
     const deliveryDays = Array.isArray(days) ? days.join(',') : (days || '');
-
-    // Harga plan
     const planPrices = {
       "Diet Plan": 30000,
       "Protein Plan": 40000,
       "Royal Plan": 60000,
     };
     const planPrice = planPrices[plan] || 0;
-
-    // Kalkulasi harga
     const mealTypeCount = mealTypes ? mealTypes.split(',').length : 0;
     const deliveryDaysCount = deliveryDays ? deliveryDays.split(',').length : 0;
     const totalPrice = planPrice * mealTypeCount * deliveryDaysCount * 4.3;
 
-    // Simpan ke database
     const sql = `
       INSERT INTO subscriptions 
         (name, phone, plan, meal_types, delivery_days, allergies, price)
@@ -114,4 +116,10 @@ app.use((req, res) => {
 // ===========================
 //        SERVER START
 // ===========================
+if (require.main === module) {
+  app.listen(port, () => {
+    console.log(`SEA Catering berjalan di http://localhost:${port}`);
+  });
+}
+
 module.exports = app;

@@ -17,58 +17,90 @@ h2 {
 /* =======================
     HEADER & NAVBAR
 ======================= */
-header {
-    background-color: #ffffff;
-    color: #28a745;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 60px;
-    height: 60px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
 .header {
   background: #fff;
   box-shadow: 0 6px 24px rgba(20,50,20,0.07);
-  /* Tambah padding/margin sesuai kebutuhan */
-  position: sticky; /* jika mau sticky */
-  top: 0; /* jika sticky */
+  position: sticky;
+  top: 0;
   z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 60px;
+  height: 60px;
 }
-
 .SEA_Header {
-    font-size: 24px;
+  font-size: 26px;
+  font-weight: 600;
+  color: #28a745;
+  margin: 0;
+  letter-spacing: 0.5px;
+  font-family: 'Poppins', sans-serif;
 }
 .nav-right {
-    display: flex;
-    align-items: center;
-    gap: 30px;
+  display: flex;
+  align-items: center;
+  gap: 28px;
 }
-nav a {
-    text-decoration: none;
-    color: #28a745;
-    margin-right: 15px;
-    font-weight: bold;
+
+/* Default nav links (Home/Menu/Subscription/Contact/Sign In) */
+.nav-right a {
+  text-decoration: none;
+  color: #28a745;
+  font-size: 1.2rem;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  transition: color 0.15s, background 0.15s, border 0.15s;
+  padding: 4px 0;
+  border-radius: 7px;
+  margin: 0;
+  background: none;
+  border: none;
+  box-shadow: none;
 }
-nav a:hover {
-    text-decoration: dotted;
-    color: #a6acaf;
+
+.nav-right a:hover:not(.signup-btn) {
+  color: #218838;
 }
-.SignIn {
-    background-color: #28a745;
-    color: #fff;
-    padding: 8px 16px;
-    border-radius: 5px;
-    font-weight: bold;
-    text-decoration: none;
-    transition: background-color 0.3s;
+
+.nav-right a.active:not(.signup-btn) {
+  border: 2px solid #28a745;
+  background: #eafbe8;
+  color: #28a745;
+  padding: 7px 28px;
+  transition: background 0.15s, border 0.15s, color 0.15s;
 }
-.SignIn:hover {
-    background-color: #218838;
-    cursor: pointer;
-    color: #f8f8f8;
+
+/* --- SIGN UP BUTTON --- */
+.nav-right .signup-btn {
+  background: #28a745;
+  color: #fff !important;
+  border: 2px solid #28a745;
+  border-radius: 9px;
+  padding: 7px 32px;
+  margin-left: 16px;
+  min-width: 110px;
+  font-size: 1.13rem;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  transition: background 0.15s, border 0.15s;
+  display: inline-block;
+  text-align: center;
+  box-sizing: border-box;
 }
+.nav-right .signup-btn:hover,
+.nav-right .signup-btn.active {
+  background: #218838;
+  border-color: #218838;
+  color: #fff !important;
+}
+
+@media (max-width: 750px) {
+  .header { padding: 0 18px; }
+  .nav-right { gap: 11px; }
+  .signup-btn { font-size: 1rem; padding: 7px 14px; min-width: 85px; }
+}
+
 
 /* =======================
     WELCOME SECTION
@@ -369,21 +401,39 @@ nav a:hover {
 
 /* === SUBSCRIBE BUTTON (for menu) === */
 .subscribe-btn {
-    width: 100%;
-    background: #28a745;
-    color: #fff;
-    font-family: 'Poppins', sans-serif;
-    font-size: 16px;
-    font-weight: 600;
-    border: none;
-    border-radius: 8px;
-    padding: 13px 0;
-    cursor: pointer;
-    margin-top: 10px;
-    transition: background 0.2s;
+  display: block;
+  width: 100%;
+  margin: 16px auto 0 auto;
+  background: #28a745;
+  color: #fff;
+  font-weight: 600;
+  font-size: 1.12rem;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 0;
+  text-align: center;
+  cursor: pointer;
+  text-decoration: none !important;
+  transition: background 0.18s;
 }
 .subscribe-btn:hover {
-    background: #218838;
+  background: #218838;
+  color: #fff;
+  text-decoration: none !important;
+}
+
+.main-container {
+  max-width: 1100px;     
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.menu-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+  justify-content: center;
+  margin-bottom: 36px;
 }
 
 .faq-card {
@@ -391,8 +441,9 @@ nav a:hover {
   border-radius: 18px;
   box-shadow: 0 4px 18px 0 rgba(40,167,69,0.11);
   padding: 34px 38px;
-  max-width: 700px;
-  margin: 36px auto 64px auto;
+  margin: 36px 0 64px 0;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .faq-title {

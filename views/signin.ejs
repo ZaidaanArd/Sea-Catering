@@ -1,10 +1,44 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>SEA Catering - Sign In</title>
+  <title>Sign In | SEA Catering</title>
   <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/auth.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont/tabler-icons.min.css" />
 </head>
 <body>
-    <%- include('partials/header') %>
-    <%- include('partials/footer') %>        
+  <%- include('partials/header') %>
+  <main style="min-height: 85vh;">
+    <div class="auth-title">Welcome Back To SEA Catering!</div>
+    <div class="auth-card">
+          <!-- Pesan Error & Sukses -->
+    <% if (typeof errorMsg !== 'undefined' && errorMsg) { %>
+      <div class="form-error"><%= errorMsg %></div>
+    <% } %>
+    <% if (typeof successMsg !== 'undefined' && successMsg) { %>
+      <div class="form-success"><%= successMsg %></div>
+    <% } %>
+    
+      <form class="auth-form" method="POST" action="/signin">
+        <label class="auth-label" for="email">
+          <i class="ti ti-mail"></i>
+          Email Address
+        </label>
+        <input class="auth-input" type="email" id="email" name="email" placeholder="you@example.com" required>
+
+        <label class="auth-label" for="password">
+          <i class="ti ti-lock"></i>
+          Password
+        </label>
+        <input class="auth-input" type="password" id="password" name="password" required>
+
+        <button type="submit" class="auth-btn">Sign In</button>
+      </form>
+      <div class="auth-bottom-text">
+        don't have an account? <a href="/signup" style="color:#28a745; font-weight:600;">Sign up</a>
+      </div>
+    </div>
+  </main>
+  <%- include('partials/footer') %>
 </body>
+</html>

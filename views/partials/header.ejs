@@ -1,10 +1,11 @@
 <header class="header">
   <h1 class="SEA_Header">SEA Catering</h1>
-  <nav>
-    <a href="/">Home</a>
-    <a href="/menu">Menu</a>
-    <a href="/subscription">Subscription</a>
-    <a href="/contact">Contact</a>
-    <a href="/signin" class="SignIn">Sign In</a>
+  <nav class="nav-right">
+    <a href="/" class="<%= activePage === 'home' ? 'active' : '' %>">Home</a>
+    <a href="/menu" class="<%= activePage === 'menu' ? 'active' : '' %>">Menu</a>
+    <a href="/subscription" class="<%= activePage === 'subscription' ? 'active' : '' %>">Subscription</a>
+    <a href="/contact" class="<%= activePage === 'contact' ? 'active' : '' %>">Contact</a>
+    <a href="/signin" class="btn-nav signin-btn <%= activePage === 'signin' ? 'active' : '' %>">Sign In</a>
+    <a href="/signup" class="btn-nav signup-btn <%= activePage === 'signup' ? 'active' : '' %>">Sign Up</a>
   </nav>
 </header>
